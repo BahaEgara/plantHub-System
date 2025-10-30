@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
+
+// Pages
 import 'pages/home_page.dart';
-import 'pages/tasks_page.dart';
-import 'pages/analytic_page.dart';
+import 'pages/fields_page.dart';
 import 'pages/chatbot_page.dart';
 import 'pages/settings_page.dart';
 import 'pages/splash_screen.dart';
-import 'pages/auth_page.dart'; // placeholder for login/register
 
-void main() => runApp(const PlantHubApp());
+// Authentication pages
+import 'pages/auth/sign_in_page.dart';
+import 'pages/auth/reset_password_page.dart';
+import 'pages/auth/otp_page.dart';
+import 'pages/auth/confirm_pass_page.dart';
+import 'pages/auth/sign_up_page.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  runApp(const PlantHubApp());
+}
 
 class PlantHubApp extends StatelessWidget {
   const PlantHubApp({super.key});
@@ -22,11 +37,14 @@ class PlantHubApp extends StatelessWidget {
         fontFamily: 'Roboto',
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2E7D32)),
       ),
-      // 👇 First screen: Onboarding
       initialRoute: "/onboarding",
       routes: {
         "/onboarding": (_) => const OnboardingPage(),
-        "/auth": (_) => const AuthPage(),
+        "/auth": (_) => const SignInPage(),
+        "/signup": (_) => const SignUpPage(),
+        "/reset-password": (_) => const ResetPasswordPage(),
+        "/otp": (_) => const OtpPage(),
+        "/confirm-password": (_) => const ConfirmPasswordPage(),
         "/home": (_) => const Shell(),
       },
     );
@@ -35,6 +53,7 @@ class PlantHubApp extends StatelessWidget {
 
 class Shell extends StatefulWidget {
   const Shell({super.key});
+
   @override
   State<Shell> createState() => _ShellState();
 }
@@ -42,10 +61,10 @@ class Shell extends StatefulWidget {
 class _ShellState extends State<Shell> {
   int index = 0;
 
+  // ✅ Updated pages order — 4 pages only
   final pages = const [
     HomePage(),
-    TasksPage(),
-    AnalyticsPage(),
+    FieldsPage(),
     ChatbotPage(),
     SettingsPage(),
   ];
@@ -56,7 +75,7 @@ class _ShellState extends State<Shell> {
       extendBody: true,
       body: SafeArea(child: pages[index]),
 
-      // Floating Navigation Bar
+      // ✅ Floating Navigation Bar
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -79,11 +98,14 @@ class _ShellState extends State<Shell> {
             selectedIndex: index,
             onDestinationSelected: (i) => setState(() => index = i),
             destinations: const [
-              NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
-              NavigationDestination(icon: Icon(Icons.check_circle_outline), label: 'Tasks'),
-              NavigationDestination(icon: Icon(Icons.analytics_outlined), label: 'Analytics'),
-              NavigationDestination(icon: Icon(Icons.chat_bubble_outline), label: 'Chatbot'),
-              NavigationDestination(icon: Icon(Icons.settings_outlined), label: 'Settings'),
+              NavigationDestination(
+                  icon: Icon(Icons.home_outlined), label: 'Home'),
+              NavigationDestination(
+                  icon: Icon(Icons.landscape_outlined), label: 'Fields'),
+              NavigationDestination(
+                  icon: Icon(Icons.chat_bubble_outline), label: 'Chatbot'),
+              NavigationDestination(
+                  icon: Icon(Icons.settings_outlined), label: 'Settings'),
             ],
           ),
         ),

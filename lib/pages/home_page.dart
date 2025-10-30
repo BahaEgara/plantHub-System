@@ -33,10 +33,9 @@ class HomePage extends StatelessWidget {
                   onPressed: () {},
                 ),
                 const SizedBox(width: 8),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 20,
-                  backgroundImage: AssetImage("assets/profile.jpg"), 
-                  // placeholder — you can replace with NetworkImage later
+                  backgroundImage: AssetImage("assets/profile.png"),
                 ),
               ],
             )
@@ -58,7 +57,7 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  Text("Weilburg, Germany",
+                  Text("Soi, Eldoret",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("Tue, 10 September 2024"),
                 ],
@@ -126,7 +125,7 @@ class HomePage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        // === Device Section ===
+        // === Your Messages Section (new) ===
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -137,28 +136,35 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Device",
+              const Text("Your Messages",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Sensor: 4"),
-                  Text("Camera: 5"),
-                ],
-              ),
-              const SizedBox(height: 12),
+
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.sensors, color: Colors.green),
-                title: const Text("JLNew H10: Soil Moisture Sensor"),
-                subtitle: const Text("Active • Signal OK"),
-                trailing: Icon(Icons.arrow_forward_ios,
-                    size: 16, color: cs.primary),
-              )
+                leading: const Icon(Icons.error_outline, color: Colors.red),
+                title: const Text("Soil Moisture Sensor – Field 2"),
+                subtitle: const Text("⚠️ No signal detected"),
+              ),
+              const Divider(),
+
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.thermostat, color: Colors.orange),
+                title: const Text("Temperature Alert – Maize Block"),
+                subtitle: const Text("High: 35°C at 2:00 PM"),
+              ),
+              const Divider(),
+
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.water_drop, color: Colors.blue),
+                title: const Text("Irrigation Needed – Spinach Beds"),
+                subtitle: const Text("Soil moisture dropped below 40%"),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

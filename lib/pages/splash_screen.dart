@@ -15,17 +15,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
     {
       "title": "Smart Farming Made Easy",
       "subtitle": "Monitor your crops in real-time with AI-powered insights.",
-      "image": "assets/images/farming.png"
+      "image": "assets/splash1.png" // ✅ removed leading slash
     },
     {
       "title": "Track Soil & Weather",
       "subtitle": "Get accurate soil moisture, pH, and climate data anytime.",
-      "image": "assets/images/soil.png"
+      "image": "assets/splash2.png",
     },
     {
       "title": "Boost Your Harvest",
       "subtitle": "Automated recommendations help you improve yields.",
-      "image": "assets/images/harvest.png"
+      "image": "assets/splash3.png",
     },
   ];
 
@@ -58,18 +58,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
             itemBuilder: (context, index) {
               final item = _pages[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Spacer(),
-                    // Image instead of Lottie
+                    // ✅ Image loads correctly now
                     Expanded(
                       flex: 3,
-                      child: Image.asset(item["image"]!, fit: BoxFit.contain),
+                      child: Image.asset(
+                        item["image"]!,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                     const SizedBox(height: 24),
-                    // Title
                     Text(
                       item["title"]!,
                       style: const TextStyle(
@@ -79,7 +82,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
-                    // Subtitle
                     Text(
                       item["subtitle"]!,
                       style: TextStyle(color: cs.outline, fontSize: 15),
@@ -92,7 +94,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             },
           ),
 
-          // === Skip button ===
+          // Skip button
           Positioned(
             top: 40,
             right: 20,
@@ -109,7 +111,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
 
-          // === Progress Indicator & Continue Button ===
+          // Dots + Continue button
           Positioned(
             bottom: 30,
             left: 24,
@@ -135,7 +137,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // Continue button
                 SizedBox(
                   width: double.infinity,
                   height: 50,
